@@ -1,0 +1,95 @@
+module.exports=` .zp114 {
+    margin: 5px;
+    height: calc(100vh - 10px);
+    background: white;
+    font-size: 14px;
+    font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.zp114 .top ul {
+    display: inline;
+    margin-left: 9px;
+}
+
+.zp114 .top>input {
+    width: 400px;
+    margin: 0 10px 0 30px;
+}
+
+.zp114 ul {
+    overflow: auto;
+    white-space: nowrap;
+    padding: 9px 0;
+    margin: 0;
+}
+
+.zp114 table {
+    width: 560px;
+    margin: 0;
+    float: left;
+}
+
+.zp114 tbody {
+    display: block;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    width: 100%;
+}
+
+.zp114 .detail {
+    margin: 0 0 0 9px;
+    float: left;
+    width: calc(100vw - 710px);
+    min-width: 350px;
+}
+
+.zp114 .jsoneditor {
+    height: calc(100vh - 210px);
+    border: 1px solid #ddd;
+}
+
+.zp114 .observer {
+    height: 20px;
+}
+
+.zp114 th,
+.zp114 td {
+    border: none;
+    min-width: 100px;
+    max-width: 300px;
+}
+
+.zp114 tbody tr {
+    cursor: pointer;
+}
+
+.zp114 tr.cur {
+    background: -webkit-gradient(linear, left top, left bottom, from(#dbdbdb), to(#d2d2d2));
+}
+
+.zp114 tr {
+    display: block;
+}
+
+.zp114 th:first-child,
+.zp114 td:first-child {
+    width: 140px;
+}
+
+.zp114 .editorpop {
+    width: 70vw;
+    height: 80vh;
+}
+
+.zp114 .zbtn {
+    margin-right: 9px;
+    min-width: 50px;
+}
+
+.zp114 .zpopup .zbtn {
+    position: absolute;
+    right: 9px;
+    bottom: 9px;
+}
+
+`
