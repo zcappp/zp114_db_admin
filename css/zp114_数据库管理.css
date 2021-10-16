@@ -32,7 +32,7 @@ module.exports=` .zp114 {
 .zp114 tbody {
     display: block;
     overflow-y: auto;
-    max-height: calc(100vh - 180px);
+    max-height: calc(100vh - 150px);
     width: 100%;
 }
 
@@ -43,8 +43,18 @@ module.exports=` .zp114 {
     min-width: 350px;
 }
 
+.zp114 .primaryKey {
+    margin: 7px 0px;
+    height: 55px;
+}
+
+.zp114 .primaryKey strong {
+    width: 50px;
+    display: inline-block;
+}
+
 .zp114 .jsoneditor {
-    height: calc(100vh - 210px);
+    height: calc(100vh - 215px);
     border: 1px solid #ddd;
 }
 

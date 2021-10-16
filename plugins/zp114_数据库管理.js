@@ -31,7 +31,14 @@ function render() {
             </div>}
             <div className={data ? "" : "zhide"}><div className="jsoneditor"/></div>
             {!!data && <div>
-                <div style={{margin: "7px 0"}}><strong>_id: </strong>{data._id}</div>
+                <div className="primaryKey">
+                    <p><strong>_id</strong>{data._id}</p>
+                    {!!data.type && <p><strong>type</strong>{data.type}</p>}
+                    {!!data.key && <p><strong>key</strong>{data.key}</p>}
+                    {!!data.name && <p><strong>name</strong>{data.name}</p>}
+                    {!!data.phone && <p><strong>phone</strong>{data.phone}</p>}
+                    {!!data.mail && <p><strong>mail</strong>{data.mail}</p>}
+                </div>
                 <button onClick={() => popup("y")} className={"zbtn" + (data.y && Object.keys(data.y).length ? " zprimary" : "")}>y</button>
                 {data.wx && <button onClick={() => popup("wx")} className="zbtn zprimary">wx</button>}
                 {data.products && <button onClick={() => popup("products")} className="zbtn zprimary">products</button>}
@@ -61,11 +68,21 @@ function onInit(ref) {
     types = ["全部"]
     list = []
     initData()
-    exc('load(["//z.zcwebs.cn/vendor/ace_1.4.12/ace.js", "//z.zcwebs.cn/vendor/ace_1.4.12/ext-language_tools.js"])', null, () => {
-        editor = ace.edit($("#" + id + " .jsoneditor"))
-        editor.$blockScrolling = Infinity
-        editor.getSession().setMode("ace/mode/json")
-        editor.getSession().setTabSize(2)
+    exc('load("https://cdn.jsdelivr.net/npm/@monaco-editor/loader")', null, () => {
+        monaco_loader.init().then(monaco => {
+            editor = monaco.editor.create($("#" + id + " .jsoneditor"), {
+                language: "json",
+                value: "{}",
+                tabSize: 2,
+                lineNumbers: "off",
+                fixedOverflowWidgets: true,
+                minimap: { enabled: false },
+                scrollbar: { alwaysConsumeMouseWheel: false },
+                formatOnPaste: true,
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+            })
+        })
 
         const o = new IntersectionObserver(entries => entries.forEach(editor => {
             if (!editor.intersectionRatio) return
@@ -90,7 +107,7 @@ function initData() {
         if (db === "user") select += " -wx -hashpw -salt"
         if (db === "order") select += " -z -products"
         O = { limit: 30, skip: 0, sort: { _id: -1 }, select }
-        exc(`$${db}.search("zp114.全部", json(), O, null, 1)`, { O }, R => {
+        exc(`$${db}.search("zp114.全部", {}, O, null, 1)`, { O }, R => {
             list = R.arr
             count = R.count
             getUsers(R)
@@ -157,7 +174,7 @@ function selectType(_type) {
 function selectData(o) {
     getX(o, o => {
         data = o
-        editor.getSession().setValue(JSON.stringify(o.x, null, "  "))
+        editor.setValue(o.x && Object.keys(o.x).length ? JSON.stringify(o.x, null, "\t") : "{\n\n\n}")
         rd()
     })
 }
@@ -174,12 +191,19 @@ function popup(k) {
     pop = k
     rd()
     setTimeout(() => {
-        let x = editorpop = ace.edit($("#" + id + " .editorpop"))
-        x.$blockScrolling = Infinity
-        x.getSession().setMode("ace/mode/json")
-        x.getSession().setTabSize(2)
-        x.getSession().setValue(JSON.stringify((data[k] || {}), null, "  "))
-        if (k !== "y") x.setReadOnly(true)
+        editorpop = monaco.editor.create($("#" + id + " .editorpop"), {
+            language: "json",
+            value: data[k] && Object.keys(data[k]).length ? JSON.stringify(data[k], null, "\t") : "{\n\n\n}",
+            tabSize: 2,
+            readOnly: k !== "y",
+            lineNumbers: "off",
+            fixedOverflowWidgets: true,
+            minimap: { enabled: false },
+            scrollbar: { alwaysConsumeMouseWheel: false },
+            formatOnPaste: true,
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+        })
     }, 9)
 }
 
@@ -222,7 +246,7 @@ function search() {
 function save() {
     let U
     try {
-        U = JSON.parse(editor.getSession().getValue())
+        U = JSON.parse(editor.getValue())
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
@@ -232,7 +256,7 @@ function save() {
 function saveY() {
     let U = { $unset: {} }
     try {
-        const o = JSON.parse(editorpop.getSession().getValue())
+        const o = JSON.parse(editorpop.getValue())
         Object.keys(o).forEach(k => U["y." + k] = o[k])
         if (data.y) Object.keys(data.y).forEach(k => { if (o[k] === undefined) U.$unset["y." + k] = "" })
     } catch (e) {
