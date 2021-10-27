@@ -1,5 +1,5 @@
 module.exports=` .zp114 {
-    margin: 5px;
+    padding: 5px;
     height: calc(100vh - 10px);
     background: white;
     font-size: 14px;
