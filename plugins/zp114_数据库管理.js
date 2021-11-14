@@ -321,9 +321,11 @@ function dels() {
     const cmd = `
     confirm("危险!", "将会批量删除此类型下的所有数据? 共有${count}个!")
     confirm("再次确认!", "确定要彻底删除吗? 删除后不可恢复!")
-    list.forEach('$${db}.delete($x)')
+    $${db}.search("zp114.dels" + type, Q, O)
+    $r.arr ? $r.arr.map('$x._id').forEach('$${db}.delete($x)') : warn("出错了")
+    info("删除完成")
     `
-    exc(cmd, { list: list.map(a => a._id) }, () => selectDB(db))
+    exc(cmd, { db, type, Q, O: { limit: 0, select: "_id" } }, () => selectDB(db))
 }
 
 function calls(arr, fn, next) {
