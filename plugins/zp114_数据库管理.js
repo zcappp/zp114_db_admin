@@ -32,12 +32,12 @@ function render() {
             <div className={data ? "" : "zhide"}><div className="jsoneditor"/></div>
             {!!data && <div>
                 <div className="primaryKey">
-                    <p><strong>_id</strong>{data._id}</p>
-                    {!!data.type && <p><strong>type</strong>{data.type}</p>}
-                    {!!data.key && <p><strong>key</strong>{data.key}</p>}
-                    {!!data.name && <p><strong>name</strong>{data.name}</p>}
-                    {!!data.phone && <p><strong>phone</strong>{data.phone}</p>}
-                    {!!data.mail && <p><strong>mail</strong>{data.mail}</p>}
+                    <p><strong>_id:</strong>{data._id}</p>
+                    {!!data.type && <p><strong>type:</strong>{data.type}</p>}
+                    {!!data.key && <p><strong>key:</strong>{data.key}</p>}
+                    {!!data.name && <p><strong>name:</strong>{data.name}</p>}
+                    {!!data.phone && <p><strong>phone:</strong>{data.phone}</p>}
+                    {!!data.mail && <p><strong>mail:</strong>{data.mail}</p>}
                 </div>
                 <button onClick={() => popup("y")} className={"zbtn" + (data.y && Object.keys(data.y).length ? " zprimary" : "")}>y</button>
                 {data.wx && <button onClick={() => popup("wx")} className="zbtn zprimary">wx</button>}
@@ -134,7 +134,7 @@ const rTable = {
         th: ["手机号", "权限", "状态"],
         tr: o => <React.Fragment>
                 <td>{o.phone}</td>
-                <td>{o.role}</td>
+                <td>{o.role ? o.role.toString() : ""}</td>
                 <td>{o.status}</td>
             </React.Fragment>
     },

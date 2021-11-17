@@ -24,17 +24,15 @@ module.exports=` .zp114 {
 }
 
 .zp114 table {
-    width: 560px;
+    max-width: 600px;
+    width: auto;
     margin: 0;
     float: left;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    display: block;
 }
 
-.zp114 tbody {
-    display: block;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-    width: 100%;
-}
 
 .zp114 .detail {
     margin: 0 0 0 9px;
@@ -65,8 +63,9 @@ module.exports=` .zp114 {
 .zp114 th,
 .zp114 td {
     border: none;
-    min-width: 100px;
-    max-width: 300px;
+    min-width: 65px;
+    max-width: 200px;
+    overflow: hidden;
 }
 
 .zp114 tbody tr {
@@ -75,10 +74,6 @@ module.exports=` .zp114 {
 
 .zp114 tr.cur {
     background: -webkit-gradient(linear, left top, left bottom, from(#dbdbdb), to(#d2d2d2));
-}
-
-.zp114 tr {
-    display: block;
 }
 
 .zp114 th:first-child,
