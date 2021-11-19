@@ -10,8 +10,8 @@ function render() {
         <div className="top">
             <strong>数据库管理</strong>
             <ul>{DB.map((a, i) => <li onClick={() => selectDB(a)} className={"ztab" + (a === db ? " zcur" : "")} key={i}>{a}</li>)}</ul>
-            <input type="text" placeholder='{ "x.技能": { "$regex": "react" } }' className="zinput"/>
-            <button onClick={() => search()} className="zbtn">搜索</button>
+            <input onBlur={search} type="text" placeholder='{ "x.技能": { "$regex": "react" } }' className="zinput"/>
+            <button onClick={search} className="zbtn">搜索</button>
             <button className="zbtn zright"><input type="file" onChange={e => upload(e)} accept="application/json"/>导入</button>
         </div>
         <ul>{types.map((a, i) => <li onClick={() => selectType(a)} className={"ztab" + (a === type ? " zcur" : "")} key={i}>{a}</li>)}</ul>
@@ -26,8 +26,8 @@ function render() {
         </table>
         <div className="detail">
             {!data && !!count && <div><div style={{"marginBottom": "9px"}}>总数：{count || ""}</div>
-                <div onClick={() => download()} className="zbtn">导出</div>
-                <div onClick={() => dels()} className="zbtn">删除</div>
+                <div onClick={download} className="zbtn">导出</div>
+                <div onClick={dels} className="zbtn">删除</div>
             </div>}
             <div className={data ? "" : "zhide"}><div className="jsoneditor"/></div>
             {!!data && <div>
@@ -44,14 +44,14 @@ function render() {
                 {data.products && <button onClick={() => popup("products")} className="zbtn zprimary">products</button>}
                 {data.z && <button onClick={() => popup("z")} className="zbtn zprimary">z</button>}
                 <div className="zright">
-                    <button onClick={() => del()} className="zbtn">删除</button>
-                    <button onClick={() => save()} className="zbtn" style={{marginRight: 0}}>保存</button>
+                    <button onClick={del} className="zbtn">删除</button>
+                    <button onClick={save} className="zbtn" style={{marginRight: 0}}>保存</button>
                 </div>
                 {!!pop && <div className="zmodals">
                     <div className="zmask" onClick={() => {pop = undefined; rd()}}/>
                     <div className="zmodal">
                         <div className="zmodal_bd editorpop"/>
-                        {pop === "y" && <div className="zmodal_ft"><button onClick={() => saveY()} className="zbtn" style={{marginRight: 0}}>保存</button></div>}
+                        {pop === "y" && <div className="zmodal_ft"><button onClick={saveY} className="zbtn" style={{marginRight: 0}}>保存</button></div>}
                     </div>
                 </div>}
             </div>}
