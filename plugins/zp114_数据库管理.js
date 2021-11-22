@@ -51,7 +51,7 @@ function render() {
                     <div className="zmask" onClick={() => {pop = undefined; rd()}}/>
                     <div className="zmodal">
                         <div className="zmodal_bd editorpop"/>
-                        {pop === "y" && <div className="zmodal_ft"><button onClick={saveY} className="zbtn" style={{marginRight: 0}}>保存</button></div>}
+                        {pop === "y" && <button onClick={saveY} className="zbtn popbtn">保存</button>}
                     </div>
                 </div>}
             </div>}
