@@ -10,7 +10,7 @@ function render() {
         <div className="top">
             <strong>数据库管理</strong>
             <ul>{DB.map((a, i) => <li onClick={() => selectDB(a)} className={"ztab" + (a === db ? " zcur" : "")} key={i}>{a}</li>)}</ul>
-            <input onBlur={search} type="text" placeholder='{ "x.技能": { "$regex": "react" } }' className="zinput"/>
+            <input onBlur={search} onKeyDown={e => e.keyCode === 13 && search()} type="text" placeholder='{ "x.技能": { "$regex": "react" } }' className="zinput"/>
             <button onClick={search} className="zbtn">搜索</button>
             <button className="zbtn zright"><input type="file" onChange={e => upload(e)} accept="application/json"/>导入</button>
         </div>
