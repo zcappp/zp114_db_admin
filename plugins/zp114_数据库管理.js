@@ -227,7 +227,8 @@ function userName(auth) {
 
 function search() {
     Q = $("#" + id + " .top input").value
-    if (!Q || !Q.startsWith("{") || !Q.endsWith("}")) return exc('warn("搜索条件必须是合法的json")')
+    if (!Q) return
+    if (!Q.startsWith("{") || !Q.endsWith("}")) return exc('warn("搜索条件必须是合法的json")')
     Q = exc(Q)
     if (typeof Q !== "object") return exc(`alert("搜索条件必须是合法的json")`)
     if (type !== ALL) Q.type = type
@@ -303,9 +304,7 @@ function upload(e) {
     reader.onload = function(e) {
         const o = JSON.parse(e.target.result)
         if (!o || !Array.isArray(o[db])) return exc('warn("上传的数据不符合格式要求")')
-        exc('$service.import(o)', { o }, R => {
-            log(R)
-        })
+        exc('$api.import(o)', { o })
     }
     reader.readAsText(f)
 }
