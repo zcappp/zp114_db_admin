@@ -310,7 +310,7 @@ function upload(e) {
 }
 
 function del() {
-    exc(`confirm("危险!", "确定要删除吗? 删除不可恢复!"); $${db}.delete(_id); $r.x ? info("已删除") : warn("删除失败"); render()`, { _id: data._id }, () => selectType(type))
+    exc(`confirm("危险!", "确定要删除吗? 删除不可恢复!"); $${db}.delete(_id); $r._id ? info("已删除") : warn("删除失败"); render()`, { _id: data._id }, () => selectType(type))
 }
 
 function dels() {
