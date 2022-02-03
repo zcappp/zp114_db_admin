@@ -249,7 +249,7 @@ function save() {
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
-    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U, 1); $r.x ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
+    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U, 1); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
 }
 
 function saveY() {
@@ -261,7 +261,7 @@ function saveY() {
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
-    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U); $r.x ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
+    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
 }
 
 function download() {
