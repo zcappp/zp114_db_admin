@@ -68,8 +68,8 @@ function onInit(ref) {
     types = ["全部"]
     list = []
     initData()
-    exc('load("//z.zccdn.cn/vendor/monaco_0.31/loader.js")', null, () => {
-        monaco_loader.config({ paths: { vs: "//z.zccdn.cn/vendor/monaco_0.31/vs" } })
+    exc('load("//z.zccdn.cn/vendor/monaco_0.31.1/monaco-loader.min-1.2.0.js")', null, () => {
+        monaco_loader.config({ paths: { vs: "//z.zccdn.cn/vendor/monaco_0.31.1/vs" } })
         monaco_loader.init().then(monaco => {
             editor = monaco.editor.create($("#" + id + " .jsoneditor"), {
                 language: "json",
