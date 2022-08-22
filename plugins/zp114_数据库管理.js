@@ -12,7 +12,7 @@ function render() {
             <ul>{DB.map((a, i) => <li onClick={() => selectDB(a)} className={"ztab" + (a === db ? " zcur" : "")} key={i}>{a}</li>)}</ul>
             <input onBlur={search} onKeyDown={e => e.keyCode === 13 && search()} type="text" placeholder='{ "x.技能": { "$regex": "react" } }' className="zinput"/>
             <button onClick={search} className="zbtn">搜索</button>
-            <button className="zbtn zright"><input type="file" onChange={e => upload(e)} accept="application/json"/>导入</button>
+            <button className="zbtn zfright"><input type="file" onChange={e => upload(e)} accept="application/json"/>导入</button>
         </div>
         <ul>{types.map((a, i) => <li onClick={() => selectType(a)} className={"ztab" + (a === type ? " zcur" : "")} key={i}>{a}</li>)}</ul>
         <table className={"ztable " + db}>
@@ -43,7 +43,7 @@ function render() {
                 {data.wx && <button onClick={() => popup("wx")} className="zbtn zprimary">wx</button>}
                 {data.products && <button onClick={() => popup("products")} className="zbtn zprimary">products</button>}
                 {data.z && <button onClick={() => popup("z")} className="zbtn zprimary">z</button>}
-                <div className="zright">
+                <div className="zfright">
                     <button onClick={del} className="zbtn">删除</button>
                     <button onClick={save} className="zbtn" style={{marginRight: 0}}>保存</button>
                 </div>
