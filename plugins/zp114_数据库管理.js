@@ -44,6 +44,7 @@ function render() {
                 {data.products && <button onClick={() => popup("products")} className="zbtn zprimary">products</button>}
                 {data.z && <button onClick={() => popup("z")} className="zbtn zprimary">z</button>}
                 <div className="zfright">
+                    {(db === "product" || db === "xdb") && <button onClick={tmpl} className="zbtn">模板</button>}
                     <button onClick={del} className="zbtn">删除</button>
                     <button onClick={save} className="zbtn" style={{marginRight: 0}}>保存</button>
                 </div>
@@ -52,6 +53,7 @@ function render() {
                     <div className="zmodal">
                         <div className="zmodal_bd editorpop"/>
                         {pop === "y" && <button onClick={saveY} className="zbtn popbtn">保存</button>}
+                        {pop === "tmpl" && <button onClick={insert} className="zbtn popbtn">插入新数据</button>}
                     </div>
                 </div>}
             </div>}
@@ -208,6 +210,29 @@ function popup(k) {
     }, 9)
 }
 
+function tmpl() {
+    pop = "tmpl"
+    rd()
+    setTimeout(() => {
+        let d = JSON.parse(JSON.stringify(data))
+        delete d._id
+        delete d.auth
+        delete d.sel
+        editorpop = monaco.editor.create($("#" + id + " .editorpop"), {
+            language: "json",
+            value: JSON.stringify(d, null, "\t"),
+            tabSize: 2,
+            lineNumbers: "off",
+            fixedOverflowWidgets: true,
+            minimap: { enabled: false },
+            scrollbar: { alwaysConsumeMouseWheel: false },
+            formatOnPaste: true,
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+        })
+    }, 9)
+}
+
 function getUsers(R) {
     if (!R || !R.arr || (db !== "product" && db !== "order")) return
     let arr = []
@@ -262,6 +287,15 @@ function saveY() {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
     exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
+}
+
+function insert() {
+    try {
+        const o = JSON.parse(editorpop.getValue())
+        exc(`confirm("注意", "确定要插入新数据吗?"); $${db}.create(o.type, db == "xdb" ? o.key : o.x, o.x); $r._id && o.y ? $${db}.modify($r._id, {y: o.y}) : ""; $r(1)._id ? info("已插入") : warn("插入失败")`, { db, o }, () => {pop = undefined; selectType(type)})
+    } catch (e) {
+        return exc(`alert("数据不合法", "${e.message}")`)
+    }
 }
 
 function download() {
