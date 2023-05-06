@@ -268,25 +268,23 @@ function search() {
 }
 
 function save() {
-    let U
+    let x
     try {
-        U = JSON.parse(editor.getValue())
+        x = JSON.parse(editor.getValue())
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
-    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U, 1); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
+    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, {x}); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, x })
 }
 
 function saveY() {
-    let U = { $unset: {} }
+    let y
     try {
-        const o = JSON.parse(editorpop.getValue())
-        Object.keys(o).forEach(k => U["y." + k] = o[k])
-        if (data.y) Object.keys(data.y).forEach(k => { if (o[k] === undefined) U.$unset["y." + k] = "" })
+        y = JSON.parse(editorpop.getValue())
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
-    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, U); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, U })
+    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, {y}); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, y })
 }
 
 function insert() {
