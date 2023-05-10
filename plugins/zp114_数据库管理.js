@@ -284,7 +284,7 @@ function saveY() {
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
-    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, {y}); $r._id ? info("已保存") : warn("保存失败")`, { _id: data._id, y })
+    exc(`confirm("注意", "确定要保存更改吗?"); $${db}.modify(_id, {y}); $r._id ? info("已保存") : warn("保存失败"); $r(1)`, { _id: data._id, y }, o => data = o)
 }
 
 function insert() {
