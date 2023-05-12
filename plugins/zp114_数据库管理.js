@@ -69,38 +69,45 @@ function init(ref) {
     type = "全部"
     types = ["全部"]
     list = []
-    initData()
     exc('load("https://z.zccdn.cn/vendor/monaco_0.31.1/monaco-loader.min-1.2.0.js")', null, () => {
         monaco_loader.config({ paths: { vs: "https://z.zccdn.cn/vendor/monaco_0.31.1/vs" } })
         monaco_loader.init().then(monaco => {
-            editor = monaco.editor.create($("#" + id + " .jsoneditor"), {
-                language: "json",
-                value: "{}",
-                tabSize: 2,
-                lineNumbers: "off",
-                fixedOverflowWidgets: true,
-                minimap: { enabled: false },
-                scrollbar: { alwaysConsumeMouseWheel: false },
-                formatOnPaste: true,
-                automaticLayout: true,
-                scrollBeyondLastLine: false,
-            })
+            let el = $("#" + id + " .observer")
+            el ? init_(ref, el) : setTimeout(() => {
+                el = $("#" + id + " .observer")
+                init_(ref, el)
+            }, 2000)
         })
-
-        const o = new IntersectionObserver(entries => entries.forEach(editor => {
-            if (!editor.intersectionRatio) return
-            if (list && count > list.length) {
-                O.skip = list.length
-                exc(`$${db}.search("zp114.type", Q, O, null, 1)`, { type, Q, O }, R => {
-                    list = list.concat(R.arr)
-                    count = R.count
-                    getUsers(R)
-                    rd()
-                })
-            }
-        }), {})
-        o.observe($("#" + id + " .observer"))
     })
+}
+
+function init_(ref, el) {
+    initData()
+    editor = monaco.editor.create($("#" + id + " .jsoneditor"), {
+        language: "json",
+        value: "{}",
+        tabSize: 2,
+        lineNumbers: "off",
+        fixedOverflowWidgets: true,
+        minimap: { enabled: false },
+        scrollbar: { alwaysConsumeMouseWheel: false },
+        formatOnPaste: true,
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+    })
+    const o = new IntersectionObserver(entries => entries.forEach(editor => {
+        if (!editor.intersectionRatio) return
+        if (list && count > list.length) {
+            O.skip = list.length
+            exc(`$${db}.search("zp114.type", Q, O, null, 1)`, { type, Q, O }, R => {
+                list = list.concat(R.arr)
+                count = R.count
+                getUsers(R)
+                rd()
+            })
+        }
+    }), {})
+    o.observe(el)
 }
 
 function initData() {
@@ -290,7 +297,10 @@ function saveY() {
 function insert() {
     try {
         const o = JSON.parse(editorpop.getValue())
-        exc(`confirm("注意", "确定要插入新数据吗?"); $${db}.create(o.type, db == "xdb" ? o.key : o.x, o.x); $r._id && o.y ? $${db}.modify($r._id, {y: o.y}) : ""; $r(1)._id ? info("已插入") : warn("插入失败")`, { db, o }, () => {pop = undefined; selectType(type)})
+        exc(`confirm("注意", "确定要插入新数据吗?"); $${db}.create(o.type, db == "xdb" ? o.key : o.x, o.x); $r._id && o.y ? $${db}.modify($r._id, {y: o.y}) : ""; $r(1)._id ? info("已插入") : warn("插入失败")`, { db, o }, () => {
+            pop = undefined;
+            selectType(type)
+        })
     } catch (e) {
         return exc(`alert("数据不合法", "${e.message}")`)
     }
