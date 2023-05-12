@@ -70,8 +70,8 @@ function init(ref) {
     types = ["全部"]
     list = []
     initData()
-    exc('load("//z.zccdn.cn/vendor/monaco_0.31.1/monaco-loader.min-1.2.0.js")', null, () => {
-        monaco_loader.config({ paths: { vs: "//z.zccdn.cn/vendor/monaco_0.31.1/vs" } })
+    exc('load("https://z.zccdn.cn/vendor/monaco_0.31.1/monaco-loader.min-1.2.0.js")', null, () => {
+        monaco_loader.config({ paths: { vs: "https://z.zccdn.cn/vendor/monaco_0.31.1/vs" } })
         monaco_loader.init().then(monaco => {
             editor = monaco.editor.create($("#" + id + " .jsoneditor"), {
                 language: "json",
