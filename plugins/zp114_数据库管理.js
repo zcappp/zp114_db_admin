@@ -141,7 +141,7 @@ const rTable = {
             </React.Fragment>
     },
     user: {
-        th: ["手机号", "权限", "状态"],
+        th: ["手机号", "角色", "状态"],
         tr: o => <React.Fragment>
                 <td>{o.phone}</td>
                 <td>{o.role ? o.role.toString() : ""}</td>
