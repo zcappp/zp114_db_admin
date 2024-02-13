@@ -1,5 +1,5 @@
 import React from "react"
-import css from "../css/zp114_数据库管理.css"
+import css from "./zp114_数据库管理.css"
 
 const DB = ["product", "xdb", "user", "order"]
 const ALL = "全部"
