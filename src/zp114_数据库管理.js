@@ -39,10 +39,10 @@ function render() {
                     {!!data.phone && <p><strong>phone:</strong>{data.phone}</p>}
                     {!!data.mail && <p><strong>mail:</strong>{data.mail}</p>}
                 </div>
-                <button onClick={() => popup("y")} className={"zbtn" + (data.y && Object.keys(data.y).length ? " zprimary" : "")}>y</button>
-                {data.wx && <button onClick={() => popup("wx")} className="zbtn zprimary">wx</button>}
-                {data.products && <button onClick={() => popup("products")} className="zbtn zprimary">products</button>}
-                {data.z && <button onClick={() => popup("z")} className="zbtn zprimary">z</button>}
+                <button onClick={() => popup("y")} className={"zbtn" + (data.y && Object.keys(data.y).length ? " main" : "")}>y</button>
+                {data.wx && <button onClick={() => popup("wx")} className="zbtn main">wx</button>}
+                {data.products && <button onClick={() => popup("products")} className="zbtn main">products</button>}
+                {data.z && <button onClick={() => popup("z")} className="zbtn main">z</button>}
                 <div className="zfright">
                     {(db === "product" || db === "xdb") && <button onClick={tmpl} className="zbtn">模板</button>}
                     <button onClick={del} className="zbtn">删除</button>
